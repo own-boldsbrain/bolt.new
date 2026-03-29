@@ -1,6 +1,7 @@
 import { useStore } from '@nanostores/react';
 import type { Message } from 'ai';
 import { useChat } from 'ai/react';
+import { modelProviderStore } from '~/lib/stores/model-provider';
 import { useAnimate } from 'framer-motion';
 import { memo, useEffect, useRef, useState } from 'react';
 import { cssTransition, toast, ToastContainer } from 'react-toastify';
@@ -75,8 +76,10 @@ export const ChatImpl = memo(({ initialMessages, storeMessageHistory }: ChatProp
 
   const [animationScope, animate] = useAnimate();
 
+  const selectedProvider = useStore(modelProviderStore);
+
   const { messages, isLoading, input, handleInputChange, setInput, stop, append } = useChat({
-    api: '/api/chat',
+    api: `/api/chat?provider=${selectedProvider}`,
     onError: (error) => {
       logger.error('Request failed\n\n', error);
       toast.error('There was an error processing your request');

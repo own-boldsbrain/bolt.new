@@ -14,7 +14,7 @@ By building with the Bolt + WebContainer API you can create browser-based applic
 
 # Get Started Building with Bolt
 
-Bolt combines the capabilities of AI with sandboxed development environments to create a collaborative experience where code can be developed by the assistant and the programmer together. Bolt combines [WebContainer API](https://webcontainers.io/api) with [Claude Sonnet 3.5](https://www.anthropic.com/news/claude-3-5-sonnet) using [Remix](https://remix.run/) and the [AI SDK](https://sdk.vercel.ai/).
+Bolt combines the capabilities of AI with sandboxed development environments to create a collaborative experience where code can be developed by the assistant and the programmer together. Bolt combines [WebContainer API](https://webcontainers.io/api) with [Ollama](https://ollama.com/) using [Remix](https://remix.run/) and the [AI SDK](https://sdk.vercel.ai/).
 
 ### WebContainer API
 
@@ -56,10 +56,17 @@ git clone https://github.com/stackblitz/bolt.new.git
 pnpm install
 ```
 
-3. Create a `.env.local` file in the root directory and add your Anthropic API key:
+3. Create a `.env.local` file in the root directory and configure either Ollama or Anthropic:
 
 ```
-ANTHROPIC_API_KEY=XXX
+# Ollama (recommended)
+OLLAMA_API_URL=http://localhost:11434/api
+OLLAMA_MODEL=phi3
+# Optional for Ollama Cloud:
+# OLLAMA_API_KEY=YOUR_OLLAMA_API_KEY
+
+# Anthropic fallback:
+# ANTHROPIC_API_KEY=XXX
 ```
 
 Optionally, you can set the debug level:

@@ -1,6 +1,7 @@
 import { useStore } from '@nanostores/react';
 import { chatStore } from '~/lib/stores/chat';
 import { workbenchStore } from '~/lib/stores/workbench';
+import { modelProviderStore, setModelProvider } from '~/lib/stores/model-provider';
 import { classNames } from '~/utils/classNames';
 
 interface HeaderActionButtonsProps {}
@@ -11,8 +12,10 @@ export function HeaderActionButtons({}: HeaderActionButtonsProps) {
 
   const canHideChat = showWorkbench || !showChat;
 
+  const selectedProvider = useStore(modelProviderStore);
+
   return (
-    <div className="flex">
+    <div className="flex items-center gap-2">
       <div className="flex border border-bolt-elements-borderColor rounded-md overflow-hidden">
         <Button
           active={showChat}
@@ -39,6 +42,17 @@ export function HeaderActionButtons({}: HeaderActionButtonsProps) {
           <div className="i-ph:code-bold" />
         </Button>
       </div>
+
+      <label className="text-xs text-bolt-elements-textSecondary">Model</label>
+      <select
+        aria-label="AI model provider"
+        value={selectedProvider}
+        className="px-2 py-1 rounded border border-bolt-elements-borderColor bg-bolt-elements-background"
+        onChange={(event) => setModelProvider(event.target.value as 'ollama' | 'anthropic')}
+      >
+        <option value="ollama">Ollama</option>
+        <option value="anthropic">Anthropic</option>
+      </select>
     </div>
   );
 }
